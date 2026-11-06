@@ -1,0 +1,25 @@
+[Unit]
+Description=healthapp (Docker container)
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/healthapp/healthapp.env
+Restart=always
+RestartSec=5
+# "-" в начале: не считать ошибкой, если старого контейнера нет
+ExecStartPre=-/usr/bin/docker rm -f healthapp
+ExecStart=/usr/bin/docker run --rm --init --name healthapp \
+    --env-file /etc/healthapp/healthapp.env \
+    --memory 128m \
+    -p ${APP_PORT}:${APP_PORT} \
+    -v /var/log/healthapp:/var/log/healthapp \
+    healthapp:1.0
+ExecStop=/usr/bin/docker stop healthapp
+TimeoutStopSec=30
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target

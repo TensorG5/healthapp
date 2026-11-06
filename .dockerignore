@@ -1,0 +1,10 @@
+.git
+.gitignore
+.venv
+__pycache__/
+*.pyc
+*.md
+deploy/
+Makefile
+Dockerfile
+.dockerignore
