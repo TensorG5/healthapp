@@ -1,7 +1,7 @@
 # healthapp
 
-Маленький веб-сервис (Python/Flask + waitress): `GET /health` и access-лог в файл.
-Упакован в Docker, запускается как служба systemd. Проверено на: _(впишите, на чём реально проверяли, напр. Ubuntu 24.04)_.
+Привет, сделал маленький веб-сервис используя Python с Flask и waitress: `GET /health` и access-лог в файл.
+Упакован в Docker, запускается как служба systemd. Проверял в основном на Debian 13.
 
 ## 1. Что установить заранее
 
@@ -14,7 +14,7 @@ sudo systemctl enable --now docker
 ## 2. Сборка и развёртывание
 
 ```bash
-git clone <ссылка-на-репозиторий> healthapp && cd healthapp
+git clone <ссылка-на-мой-репо> healthapp && cd healthapp
 make build          # собрать образ healthapp:1.0
 make deploy         # разложить файлы, включить и запустить службу
 ```

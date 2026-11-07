@@ -12,6 +12,8 @@ run: build
 	    -p 8080:8080 -v /var/log/healthapp:/var/log/healthapp $(IMAGE)
 
 deploy: build
+	getent group healthapp >/dev/null || sudo groupadd --system --gid 10001 healthapp
+	id healthapp >/dev/null 2>&1 || sudo useradd --system --uid 10001 --gid 10001 --no-create-home --shell /usr/sbin/nologin healthapp
 	sudo install -d -o 10001 -g 10001 -m 755 /var/log/healthapp
 	sudo install -d -m 755 /etc/healthapp
 	sudo test -f /etc/healthapp/healthapp.env || sudo install -m 644 deploy/healthapp.env /etc/healthapp/healthapp.env
